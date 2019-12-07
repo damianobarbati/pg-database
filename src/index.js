@@ -1,8 +1,10 @@
 import pg, { Pool } from 'pg';
 import pgNamed from './named.js';
 import pgLogged from './logged.js';
+import { stripIndent } from 'common-tags';
 
 pg.types.setTypeParser(pg.types.builtins.TEXT, String);
+pg.types.setTypeParser(pg.types.builtins.NUMERIC, Number);
 pg.types.setTypeParser(pg.types.builtins.INT2, Number);
 pg.types.setTypeParser(pg.types.builtins.INT4, Number);
 pg.types.setTypeParser(pg.types.builtins.INT8, Number);
@@ -35,17 +37,17 @@ export default class Database {
     };
 
     select = async (query, replacements = {}) => {
-        const { rows: result } = await this.pool.query(query, replacements);
+        const { rows: result } = await this.pool.query(stripIndent(query), replacements);
         return result;
     };
 
     update = async (query, replacements = {}, returnRowCount = false) => {
-        const { rowCount, rows: result } = await this.pool.query(query, replacements);
+        const { rowCount, rows: result } = await this.pool.query(stripIndent(query), replacements);
         return returnRowCount ? rowCount : result;
     };
 
     ['delete'] = async (query, replacements = {}, returnRowCount = false) => {
-        const { rowCount, rows: result } = await this.pool.query(query, replacements);
+        const { rowCount, rows: result } = await this.pool.query(stripIndent(query), replacements);
         return returnRowCount ? rowCount : result;
     };
 }

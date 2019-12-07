@@ -1,3 +1,2 @@
-series-datadir/
 node_modules/
-logs/
+.idea/

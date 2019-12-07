@@ -19,7 +19,7 @@ Or import an already instantiated db connection, setting `DB_URI=<connection-uri
 import { database } from 'pg-database';
 ```
 
-You can use this module as a simple drop-in replacements for `pg`:
+You can use this module as a simple drop-in replacement for `pg`:
 
 ```javascript
 import { database } from 'pg-database';

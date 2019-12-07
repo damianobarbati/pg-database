@@ -29,13 +29,13 @@ const patch = (client, logFunc = console.log) => {
     return client;
 };
 
-const valueToString = value => {
+const valueToString = (value, encloseWith = '\'') => {
     if (Array.isArray(value))
-        return "'{" + value.map(valueToString) + "}'";
+        return "'{" + value.map(v => valueToString(v, '"')) + "}'";
     else if (typeof value === 'number' || value === null)
         return value;
     else
-        return `'${value}'`;
+        return `${encloseWith}${value}${encloseWith}'`;
 };
 
 export default patch;
