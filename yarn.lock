@@ -649,6 +649,18 @@ pg-database@^1.0.0:
     pg-logged "^1.0.1"
     pg-named "^1.0.2"
 
+pg-database@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/pg-database/-/pg-database-1.0.1.tgz#cdf90cc6c6bd13edad60caec5460391f3c1a6784"
+  integrity sha512-5BYNmrYkxsS//qQ6TOS8DI3hTxj4rqi1/iVmvwcz7Yc2UHSLJe0r7rHPqDfAOLD2ZronQe3kU9OhdUKCgjSuyQ==
+  dependencies:
+    common-tags "^1.8.0"
+    esm "^3.2.25"
+    pg "^7.14.0"
+    pg-database "^1.0.0"
+    pg-logged "^1.0.1"
+    pg-named "^1.0.2"
+
 pg-int8@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/pg-int8/-/pg-int8-1.0.1.tgz#943bd463bf5b71b4170115f80f8efc9a0c0eb78c"

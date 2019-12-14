@@ -1,7 +1,7 @@
 # pg-database
 
 ## Overview
-Handy wrapper for `pg` (`node-postgres`) database connection instances featuring:
+Handy wrapper for `pg` (formerly `node-postgres`) database connection instances featuring:
 - CRUD operation wrappers
 - named placeholders
 - query logging
@@ -39,16 +39,16 @@ Just give a look at `src/index.js` to get a picture of it: minimal and simple.
 ### Named placeholders
 Use object replacements (named placeholders) and not array replacements (positional placeholders).
 
-Placeholders must begin with `:` or `$` and can contain only alphanumerics, underscores, and dashes.
+Placeholders must begin with `:` or `$` and can contain only letters, numbers, underscores, dashes.
 
 Before:
 ```javascript
-client.query('SELECT name FROM person WHERE name = $1', ['john'])
+client.query('SELECT name FROM people WHERE name = $1', ['john'])
 ```
 
 After:
 ```javascript
-client.query('SELECT name FROM person WHERE name = :name', { name: 'john' })
+client.query('SELECT name FROM people WHERE name = :name', { name: 'john' })
 ```
 
 ### Query logging
@@ -66,6 +66,7 @@ import { database } from 'pg-database';
 
 ## Development
 ```
-yarn test:db # start docker test db
-yarn test    # run tests
+yarn test:db-start # start docker test db
+yarn test          # run tests
+yarn test:db-stop  # stop docker test db
 ```
