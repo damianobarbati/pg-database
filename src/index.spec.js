@@ -44,10 +44,36 @@ describe('database', () => {
         expect(delete2).toEqual(2);
     });
 
-    it('success (in clause)', async () => {
-        const [result] = await database.select('select 4 = any(:ids) as value', { ids: [1, 2, 3] });
+    describe('in clause', () => {
+        it('success', async () => {
+            const [result] = await database.select(`select 1 = any('{1,2,3}') as value`);
 
-        expect(result).toEqual({ value: true });
+            expect(result).toEqual({ value: true });
+        });
+
+        it('success', async () => {
+            const [result] = await database.select(`select 4 = any('{1,2,3}') as value`);
+
+            expect(result).toEqual({ value: false });
+        });
+
+        fit('success', async () => {
+            const [result] = await database.select(`select 1 != any('{1,2,3}') as value`);
+
+            expect(result).toEqual({ value: true });
+        });
+
+        it('success', async () => {
+            const [result] = await database.select('select 1 = any(:ids) as value', { ids: ['1', '2', '3'] });
+
+            expect(result).toEqual({ value: true });
+        });
+
+        it('success', async () => {
+            const [result] = await database.select('select 1::text = any(:ids) as value', { ids: ['a', 'b', 'c'] });
+
+            expect(result).toEqual({ value: false });
+        });
     });
 
     it('success with string cointaning named placeholder prefix', async () => {

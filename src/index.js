@@ -10,7 +10,6 @@ pg.types.setTypeParser(pg.types.builtins.INT4, Number);
 pg.types.setTypeParser(pg.types.builtins.INT8, Number);
 pg.types.setTypeParser(pg.types.builtins.FLOAT4, Number);
 pg.types.setTypeParser(pg.types.builtins.FLOAT8, Number);
-pg.types.setTypeParser(pg.types.builtins.BOOL, Boolean)
 pg.types.setTypeParser(pg.types.builtins.TIMESTAMP, String);
 pg.types.setTypeParser(pg.types.builtins.TIMESTAMPTZ, String);
 
