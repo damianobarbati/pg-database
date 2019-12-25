@@ -19,9 +19,11 @@ describe('database', () => {
 
     it('works', async () => {
         const [select1] = await database.select('select 1 + $random as value1, 2 + $random as value2 where $random = $random', { random: 123 });
+
         expect(select1).toEqual({ value1: 124, value2: 125 });
 
         const [insert1] = await database.insert('foos', { content: 'hello!' });
+
         expect(insert1).toEqual({ id: 1, content: 'hello!' });
 
         await database.insert('foos', { content: 'hola!' });
@@ -30,46 +32,49 @@ describe('database', () => {
         await database.insert('foos', { content: 'salut!' });
 
         const update1 = await database.update('update foos set content = :content where id = :id returning *', { content: 'hola!', id: 1 });
+
         expect(update1.length).toEqual(1);
         expect(update1[0]).toEqual({ id: 1, content: 'hola!' });
 
         const update2 = await database.update('update foos set content = :content where id <= :id returning *', { content: 'hola!', id: 2 });
+
         expect(update2.length).toEqual(2);
         expect(update2[0]).toEqual({ id: 1, content: 'hola!' });
         expect(update2[1]).toEqual({ id: 2, content: 'hola!' });
 
         const delete1 = await database.delete('delete from foos where id = :id returning *', { id: 1, limit: 1 }, true);
         const delete2 = await database.delete('delete from foos where id <= :id returning *', { id: 3 }, true);
+
         expect(delete1).toEqual(1);
         expect(delete2).toEqual(2);
     });
 
     describe('in clause', () => {
-        it('success', async () => {
+        it('success: in array is true', async () => {
             const [result] = await database.select(`select 1 = any('{1,2,3}') as value`);
 
             expect(result).toEqual({ value: true });
         });
 
-        it('success', async () => {
+        it('success: in array is false', async () => {
             const [result] = await database.select(`select 4 = any('{1,2,3}') as value`);
 
             expect(result).toEqual({ value: false });
         });
 
-        it('success', async () => {
-            const [result] = await database.select(`select 1 != any('{1,2,3}') as value`);
+        it('success: not in array', async () => {
+            const [result] = await database.select(`select 1 != all('{1,2,3}') as value`);
 
-            expect(result).toEqual({ value: true });
+            expect(result).toEqual({ value: false });
         });
 
-        it('success', async () => {
+        it('success: array placeholder 1', async () => {
             const [result] = await database.select('select 1 = any(:ids) as value', { ids: ['1', '2', '3'] });
 
             expect(result).toEqual({ value: true });
         });
 
-        it('success', async () => {
+        it('success: array placeholder 2', async () => {
             const [result] = await database.select('select 1::text = any(:ids) as value', { ids: ['a', 'b', 'c'] });
 
             expect(result).toEqual({ value: false });
@@ -91,7 +96,7 @@ describe('database', () => {
     it('success (multiple empty lines)', async () => {
         const [result] = await database.select(`
             select
-                '{"handpicked":true}' as value -- should't cause: any problems
+                '{"handpicked":true}' as value -- should't cause: any problem
         `);
 
         expect(result.value).toEqual(`{"handpicked":true}`);
