@@ -18,7 +18,7 @@ const patch = (client, logFunc = console.log) => {
     client.query = (query, replacements, cb) => {
         const sql = query.replace(tokenPattern, m => {
             const replacement = replacements[m.slice(1)];
-            const result = valueToString(replacement)
+            const result = valueToString(replacement);
             return result;
         });
 
@@ -35,7 +35,7 @@ const valueToString = (value, encloseWith = '\'') => {
     else if (typeof value === 'number' || value === null)
         return value;
     else
-        return `${encloseWith}${value}${encloseWith}'`;
+        return `${encloseWith}${value}${encloseWith}`;
 };
 
 export default patch;

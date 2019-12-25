@@ -1,6 +1,6 @@
 {
     "name": "pg-database",
-    "description": "Handy wrapper for pg (node-postgres) database connection instances",
+    "description": "Handy wrapper for pg (node-postgres) database connection instance.",
     "license": "MIT",
     "repository": "https://github.com/damianobarbati/pg-database.git",
     "author": "Damiano Barbati <damiano.barbati@gmail.com> (https://github.com/damianobarbati)",

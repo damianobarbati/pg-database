@@ -57,7 +57,7 @@ describe('database', () => {
             expect(result).toEqual({ value: false });
         });
 
-        fit('success', async () => {
+        it('success', async () => {
             const [result] = await database.select(`select 1 != any('{1,2,3}') as value`);
 
             expect(result).toEqual({ value: true });
@@ -76,13 +76,13 @@ describe('database', () => {
         });
     });
 
-    it('success with string cointaning named placeholder prefix', async () => {
+    it('success with string containing named placeholder prefix', async () => {
         const [result] = await database.select(`select '{"handpicked":true}' as value`);
 
         expect(result.value).toEqual(`{"handpicked":true}`);
     });
 
-    it('success with string cointaning named placeholder prefix and a space', async () => {
+    it('success with string containing named placeholder prefix and a space', async () => {
         const [result] = await database.select(`select '{"handpicked": true}' as value`);
 
         expect(result.value).toEqual(`{"handpicked": true}`);
