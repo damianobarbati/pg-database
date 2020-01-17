@@ -1,6 +1,7 @@
 import pg, { Pool } from 'pg';
-import pgNamed from './named.js';
-import pgLogged from './logged.js';
+import named from './named.js';
+import logged from './logged.js';
+import { removeLinesWithUndefinedReplacements } from './helpers.js';
 import { stripIndent } from 'common-tags';
 
 pg.types.setTypeParser(pg.types.builtins.TEXT, String);
@@ -21,8 +22,8 @@ export default class Database {
     constructor (connectionString, logFunc = Function.prototype) {
         const pool = new Pool({ connectionString });
 
-        pgNamed(pool);
-        pgLogged(pool, logFunc);
+        named(pool);
+        logged(pool, logFunc);
 
         this.pool = pool;
         this.query = pool.query.bind(pool);
@@ -35,7 +36,10 @@ export default class Database {
         return result;
     };
 
-    select = async (query, replacements = {}) => {
+    select = async (query, replacements = {}, removeUndefineds = false) => {
+        if (removeUndefineds)
+            removeLinesWithUndefinedReplacements(query, replacements);
+
         const { rows: result } = await this.pool.query(stripIndent(query), replacements);
         return result;
     };
