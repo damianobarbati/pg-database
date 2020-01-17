@@ -38,7 +38,7 @@ export default class Database {
 
     select = async (query, replacements = {}, removeUndefineds = false) => {
         if (removeUndefineds)
-            removeLinesWithUndefinedReplacements(query, replacements);
+            query = removeLinesWithUndefinedReplacements(query, replacements);
 
         const { rows: result } = await this.pool.query(stripIndent(query), replacements);
         return result;
