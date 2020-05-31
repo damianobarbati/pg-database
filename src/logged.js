@@ -22,7 +22,9 @@ const patch = (client, logFunc = console.log) => {
             return result;
         });
 
-        logFunc(sql);
+        if (!sql.includes('no-log!'))
+            logFunc(sql);
+
         return originalQuery(query, replacements, cb);
     };
 
