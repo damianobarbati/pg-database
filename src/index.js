@@ -1,8 +1,10 @@
-import pg, { Pool } from 'pg';
+import pg from 'pg';
 import named from './named.js';
 import logged from './logged.js';
 import { removeLinesWithUndefinedReplacements } from './helpers.js';
-import { stripIndent } from 'common-tags';
+import commonTags from 'common-tags';
+
+const { stripIndent } = commonTags;
 
 pg.types.setTypeParser(pg.types.builtins.TEXT, String);
 pg.types.setTypeParser(pg.types.builtins.NUMERIC, Number);
@@ -20,7 +22,7 @@ export default class Database {
     query;
 
     constructor (connectionString, logFunc = Function.prototype) {
-        const pool = new Pool({ connectionString });
+        const pool = new pg.Pool({ connectionString });
 
         named(pool);
         logged(pool, logFunc);

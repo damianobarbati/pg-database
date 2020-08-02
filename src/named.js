@@ -1,4 +1,8 @@
-import { difference, intersection, map, reduce, uniq } from 'lodash-es';
+import difference from 'lodash/difference.js';
+import intersection from 'lodash/intersection.js';
+import map from 'lodash/map.js';
+import reduce from 'lodash/reduce.js';
+import uniq from 'lodash/uniq.js';
 
 export const tokenPattern = /(?<!:)(?<=^|\b|\(|\s+)(?:\$|:)[a-zA-Z]([a-zA-Z0-9_]*)\b/g;
 
