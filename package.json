@@ -6,23 +6,20 @@
     "author": "Damiano Barbati <damiano.barbati@gmail.com> (https://github.com/damianobarbati)",
     "version": "1.1.1",
     "main": "src/index.js",
-    "engines": {
-        "node": ">=12.0.0"
-    },
+    "type": "module",
     "scripts": {
         "test:db-start": "docker run --rm --name pg-database-test -p 6000:5432 --detach --env POSTGRES_USER=root --env POSTGRES_PASSWORD=root --env POSTGRES_DB=test postgres:12-alpine",
         "test:db-stop": "docker rm -f pg-database-test",
-        "test": "DB_URI=postgresql://root:root@127.0.0.1:6000/test DB_LOG=1 npx --no-install -n '-r esm' jasmine --random=false src/*.spec.js"
+        "test": "DB_URI=postgresql://root:root@127.0.0.1:6000/test DB_LOG=1 jasmine --random=false src/*.spec.js"
     },
     "dependencies": {
         "common-tags": "^1.8.0",
-        "esm": "^3.2.25",
         "lodash-es": "^4.17.15",
         "pg": "^8.0.2"
     },
     "devDependencies": {
         "babel-eslint": "^10.1.0",
-        "eslint": "^6.8.0",
+        "eslint": "^7.6.0",
         "eslint-plugin-jasmine": "^4.1.0",
         "jasmine": "^3.5.0"
     }
